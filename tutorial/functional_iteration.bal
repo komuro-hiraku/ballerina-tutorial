@@ -30,8 +30,40 @@ public function main() {
     numbers.forEach(function (int i) {
         io:println("number: ", i);
     });
+
+    // reduce
+    int total = numbers.reduce(sum, 0);
+    io:println("Total: ", total);
+
+    int totalWithInitialValue = numbers.reduce(sum, 5);
+    io:println("Total with Initial Value: ", totalWithInitialValue);
+
+    io:println("\nExecution Order: -");
+
+    // json, map, forEach
+    map<json> obj = {name: "apple", colors: ["red", "green"], price: 5};
+    obj.map(function (json value) returns string {
+        string result = value.toString();
+        io:println("- map operation's value: ", result);
+        return result.toUpperAscii();   // To Change UpperCase
+    }).forEach(function (string s) {
+        io:println("-- foreach operation's value: ", s);
+    });
+    // map 結果を変数に Assign しないとコンパイラに怒られる。使わなければ当然無意味な演算だから妥当
+
 }
 
+# `sum` function
+# + acc - field of Accumulator
+# + current - field of Current Value
+# + return - result of sum calculation
+function sum(int acc, int current) returns int {
+    return acc + current;
+}
+
+# `toUpper` 入力した文字列を大文字に変換して返却する function
+# + value - 大文字に変換したい文字列
+# + return - 変換後の文字列
 function toUpper(string value) returns string {
     return value.toUpperAscii();
 }
